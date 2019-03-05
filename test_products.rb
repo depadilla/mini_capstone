@@ -16,3 +16,6 @@ p product1_description
 
 table = TTY::Table.new ['Name','Description'], [[reponse_info["products_alls"][0]["name"], reponse_info["products_alls"][0]["description"]], [reponse_info["products_alls"][1]["name"], reponse_info["products_alls"][1]["description"]]]
 puts table.render(:ascii)
+
+table1 = TTY::Table.new ['REDDIT'],[reponse_info["products_alls"][0]["name"]], [[reponse_info["products_alls"][1]["name"]]]
+puts table1.render(:ascii, padding: [0,9])

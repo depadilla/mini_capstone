@@ -1,0 +1,1 @@
+json.new_product @new_product

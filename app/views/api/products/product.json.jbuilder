@@ -1,4 +1,7 @@
-json.products_alls @products
-json.products1 @product1
-json.products2 @product2
-json.products3 @product3
+json.id @product.id
+json.name @product.name
+json.price @product.price
+json.image_url @product.image_url
+json.description @product.description
+json.discounted @product.is_discounted?
+json.tax @product.tax
