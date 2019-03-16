@@ -1,5 +1,6 @@
 class Api::ProductsController < ApplicationController
-  protect_from_forgery with: :null_session
+  before_action :authenticate_admin, except: [:index, :show]
+
   def index
     @products = Product.all
     render "index.json.jbuilder"
@@ -14,10 +15,16 @@ class Api::ProductsController < ApplicationController
   def create
     @new_product = Product.create(
       name: params[:name], 
-      price: params[:price], 
-      image_url: params[:image_url], 
-      description: params[:description]
+      price: params[:price],  
+      description: params[:description],
+      # supplier_id: 1
     )
+
+    if @product.save
+      render "show.json.jbuilder"
+    else
+      render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
+    end
     render "create.json.jbuilder"
   end
 
@@ -25,7 +32,6 @@ class Api::ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
     @product.name = params[:name]
     @product.price = params[:price]
-    @product.image_url = params[:image_url]
     @product.description = params[:description]
     @product.save
 
